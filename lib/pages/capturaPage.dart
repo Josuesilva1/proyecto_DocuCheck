@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helpers/menuItems.dart';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -10,6 +11,13 @@ class CapturaPage extends StatefulWidget {
 class _CapturaPageState extends State<CapturaPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBarService.buildAppBar(
+        title: 'Captura de Imagen',
+        hamburger: true,
+        context: context,
+      ),
+      body: Center(child: Text('Contenido de captura')),
+    );
   }
 }

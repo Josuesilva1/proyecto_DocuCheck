@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget menuItems(BuildContext context, IconData icon, String title, String ?route) {
+Widget menuItems(BuildContext context, IconData icon, String title, String route) {
   return InkWell(
-    //onTap: () {Navigator.pushNamed(context, route);},
-    onTap: (){},
+    onTap: () {Navigator.pushNamed(context, route);},
     borderRadius: BorderRadius.circular(16),
     child: Container(
       decoration: BoxDecoration(
@@ -38,4 +37,30 @@ Widget menuItems(BuildContext context, IconData icon, String title, String ?rout
       ),
     ),
   );
+}
+
+class AppBarService{
+  static AppBar buildAppBar({
+    required String title,
+    bool hamburger = false,
+    BuildContext? context,
+  }){
+    return AppBar(
+      title: Text(title),
+      centerTitle: true,
+      actions: [
+        if(hamburger)
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: (){
+              if(context != null){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Menú pendiente de implementar')),
+                );
+              }
+            },
+          )
+      ]
+    );
+  }
 }

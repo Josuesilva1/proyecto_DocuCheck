@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+	<string>La cámara se utiliza para capturar documentos para validación OCR</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>La galería se utiliza para seleccionar documentos existentes</string>
 </dict>
 </plist>
