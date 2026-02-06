@@ -19,11 +19,8 @@ class MenuPrincipal extends StatelessWidget {
         mainAxisSpacing: 16,
         children: [
           menuItems(context, Icons.camera_alt, 'Cámara', AppRoutes.capturaImage),
-          /*enuItems(context, Icons.data_exploration, "Reporte", () {}),
-          menuItems(context, Icons.history, "Historial", () {}),*/
-          //menuItems(context, Icons.camera_alt, "Cámara", AppRoutes.capturaImage),
-          menuItems(context, Icons.data_exploration, "Reporte", AppRoutes.capturaImage),
-          menuItems(context, Icons.history, "Historial", AppRoutes.capturaImage),
+          menuItems(context, Icons.data_saver_on, "Reportes", AppRoutes.reportesPage),
+          menuItems(context, Icons.history, "Historial", AppRoutes.historialVerificaciones),
         ],
       ),
     );

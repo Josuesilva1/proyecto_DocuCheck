@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import '../helpers/menuItems.dart';
 
-class Reports extends StatefulWidget {
-  const Reports({super.key});
+class ReportesPage extends StatefulWidget {
+  const ReportesPage({super.key});
 
   @override
-  State<Reports> createState() => _ReportsState();
+  State<ReportesPage> createState() => _ReportesPageState();
 }
 
-class _ReportsState extends State<Reports> {
+class _ReportesPageState extends State<ReportesPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBarService.buildAppBar(
+        title: 'Reportes',
+        hamburger: true,
+        context: context,
+      ),
+      body: Center(child: Text('Contenido de reportes')),
+    );
   }
 }

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import '../helpers/menuItems.dart';
 
-class Historial extends StatefulWidget {
-  const Historial({super.key});
+class HistorialVerificaciones extends StatefulWidget {
+  const HistorialVerificaciones({super.key});
 
   @override
-  State<Historial> createState() => _HistorialState();
+  State<HistorialVerificaciones> createState() => _HistorialVerificacionesState();
 }
 
-class _HistorialState extends State<Historial> {
+class _HistorialVerificacionesState extends State<HistorialVerificaciones> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBarService.buildAppBar(
+        title: 'Historial de Verificaciones',
+        hamburger: true,
+        context: context,
+      ),
+      body: Center(child: Text('Contenido de historial de verificaciones')),
+    );
   }
 }
