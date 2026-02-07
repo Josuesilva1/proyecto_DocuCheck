@@ -13,10 +13,11 @@ class MenuPrincipal extends StatelessWidget {
         centerTitle: true,
       ),
       body: GridView.count(
-        crossAxisCount: 2,
-        padding: EdgeInsets.all(16),
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
+        crossAxisCount: getCrossAxisCount(context),
+        childAspectRatio: getCrossAxisCount(context) == 1 ? 1.55 : 1,
+        padding: EdgeInsets.all(12),
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
         children: [
           menuItems(context, Icons.camera_alt, 'Cámara', AppRoutes.capturaImage),
           menuItems(context, Icons.data_saver_on, "Reportes", AppRoutes.reportesPage),

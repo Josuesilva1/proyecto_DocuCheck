@@ -24,7 +24,7 @@ Widget menuItems(BuildContext context, IconData icon, String title, String route
             size: 48,
             color: Colors.red,
             ),
-          SizedBox(width: 12),
+          SizedBox(width: 6),
           Text(
             title,
             style: TextStyle(
@@ -37,6 +37,11 @@ Widget menuItems(BuildContext context, IconData icon, String title, String route
       ),
     ),
   );
+}
+
+int getCrossAxisCount(BuildContext context) {
+  final width = MediaQuery.of(context).size.width;
+  return width < 500 ? 1 : 2;
 }
 
 class AppBarService{
