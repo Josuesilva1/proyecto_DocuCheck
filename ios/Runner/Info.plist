@@ -2,6 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<!--importante permisos para dispositivos IOS de camara y galerias -->
+<key>NSCameraUsageDescription</key>
+<string>Necesitamos acceder a la cámara para capturar imágenes.</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Necesitamos acceder a la galería para seleccionar imágenes.</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

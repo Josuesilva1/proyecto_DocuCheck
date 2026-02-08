@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-Widget menuItems(BuildContext context, IconData icon, String title, String route) {
+Widget menuItems(
+  BuildContext context,
+  IconData icon,
+  String title,
+  String route,
+) {
   return InkWell(
-    onTap: () {Navigator.pushNamed(context, route);},
+    onTap: () {
+      Navigator.pushNamed(context, route);
+    },
     borderRadius: BorderRadius.circular(16),
     child: Container(
       decoration: BoxDecoration(
@@ -19,11 +26,7 @@ Widget menuItems(BuildContext context, IconData icon, String title, String route
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon, 
-            size: 48,
-            color: Colors.red,
-            ),
+          Icon(icon, size: 48, color: Colors.red),
           SizedBox(width: 6),
           Text(
             title,
@@ -44,28 +47,30 @@ int getCrossAxisCount(BuildContext context) {
   return width < 500 ? 1 : 2;
 }
 
-class AppBarService{
+class AppBarService {
   static AppBar buildAppBar({
     required String title,
     bool hamburger = false,
     BuildContext? context,
-  }){
+  }) {
     return AppBar(
       title: Text(title),
       centerTitle: true,
       actions: [
-        if(hamburger)
+        if (hamburger)
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: (){
-              if(context != null){
+            onPressed: () {
+              if (context != null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Menú pendiente de implementar')),
                 );
               }
             },
-          )
-      ]
+          ),
+      ],
     );
   }
 }
+
+
