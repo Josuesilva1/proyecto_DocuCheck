@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../helpers/menuItems.dart';
+import '../helpers/drawer.dart';
 
 class HistorialVerificaciones extends StatefulWidget {
   const HistorialVerificaciones({super.key});
@@ -12,11 +12,11 @@ class _HistorialVerificacionesState extends State<HistorialVerificaciones> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarService.buildAppBar(
-        title: 'Historial de Verificaciones',
-        hamburger: true,
-        context: context,
+      appBar: AppBar(
+        title: Text('Menú Principal'),
+        centerTitle: true,
       ),
+      drawer: buildDrawer(context),
       body: Center(child: Text('Contenido de historial de verificaciones')),
     );
   }

@@ -2,7 +2,7 @@ import 'dart:io'; //librearia para herramientas internas y externas
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
-import '../helpers/menuItems.dart';
+import '../helpers/drawer.dart';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -58,11 +58,11 @@ class _CapturaPageState extends State<CapturaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarService.buildAppBar(
-        title: 'Captura de Imagen',
-        hamburger: true,
-        context: context,
+      appBar: AppBar(
+        title: Text('Captura de Imagen'),
+        centerTitle: true,
       ),
+      drawer: buildDrawer(context),
       body: Center(
         child: SingleChildScrollView(
           child: Column(

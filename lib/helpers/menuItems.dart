@@ -46,31 +46,3 @@ int getCrossAxisCount(BuildContext context) {
   final width = MediaQuery.of(context).size.width;
   return width < 500 ? 1 : 2;
 }
-
-class AppBarService {
-  static AppBar buildAppBar({
-    required String title,
-    bool hamburger = false,
-    BuildContext? context,
-  }) {
-    return AppBar(
-      title: Text(title),
-      centerTitle: true,
-      actions: [
-        if (hamburger)
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              if (context != null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Menú pendiente de implementar')),
-                );
-              }
-            },
-          ),
-      ],
-    );
-  }
-}
-
-
