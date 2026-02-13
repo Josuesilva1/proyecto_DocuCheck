@@ -46,3 +46,36 @@ int getCrossAxisCount(BuildContext context) {
   final width = MediaQuery.of(context).size.width;
   return width < 500 ? 1 : 2;
 }
+
+
+Widget bulletItem(String text) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Icon(Icons.circle, size: 8),
+      SizedBox(width: 8),
+      Expanded(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+      ),
+    ],
+  );
+}
+
+Widget bulletSubItem(String text) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Icon(Icons.circle_outlined, size: 8),
+      const SizedBox(width: 8),
+      Expanded(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+      ),
+    ],
+  );
+}

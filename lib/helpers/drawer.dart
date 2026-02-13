@@ -4,19 +4,25 @@ import '../routes/appRoutes.dart';
 Drawer buildDrawer(BuildContext context) {
   return Drawer(
     child: ListView(
-      //padding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       children: [
         const DrawerHeader(
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 89, 90, 88),
           ),
-          child: Text(
-            'Menú',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.verified, color: Colors.blue, size: 50),
+              Text(
+                'DocuCheck',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
         ListTile(
@@ -45,6 +51,13 @@ Drawer buildDrawer(BuildContext context) {
           title: const Text('Reportes'),
           onTap: () {
             Navigator.pushNamed(context, AppRoutes.reportesPage);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.info),
+          title: const Text('Acerca De'),
+          onTap: () {
+            Navigator.pushNamed(context, AppRoutes.acercaDe);
           },
         ),
       ],
