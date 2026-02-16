@@ -6,6 +6,7 @@ import '../pages/historial_verificaciones.dart';
 import '../pages/acercaDe.dart';
 
 class AppRoutes {
+
   static const String menuPrincipal = '/menuPrincipal';
   static const String capturaImage = '/capturaPage';
   static const String reportesPage = '/reportesPage';
@@ -17,7 +18,10 @@ class AppRoutes {
       menuPrincipal: (context) => const MenuPrincipal(),
       capturaImage: (context) => const CapturaPage(),
       reportesPage: (context) => const ReportesPage(),
+
+      // CORRECCIÓN AQUÍ
       historialVerificaciones: (context) => const HistorialVerificaciones(),
+      
       acercaDe: (context) => const Acercade(),
     };
   }

@@ -1,4 +1,4 @@
-import 'dart:io'; //librearia para herramientas internas y externas
+/*import 'dart:io'; //librearia para herramientas internas y externas
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,13 +10,13 @@ String textoExtraido = "";
   Future<void> pickImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setSState(() {
+      setState(() {
         imagenArchivo = File(pickedFile.path);
       });
       processImage();
     }
   }
-
+  
   Future<void> pickImageFromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
@@ -41,4 +41,4 @@ String textoExtraido = "";
     });
 
     textRecognizer.close();//liberar recursos opcional
-  } // Procesar imagen con OCR
+  } // Procesar imagen con OCR */
