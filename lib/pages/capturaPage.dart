@@ -4,7 +4,7 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_picker/image_picker.dart';
 import '../helpers/drawer.dart';
 import '../helpers/menuItems.dart';
-import '';
+import '../helpers/document.dart';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -19,6 +19,15 @@ class _CapturaPageState extends State<CapturaPage> {
 
   final ImagePicker _picker = ImagePicker();
   final TextEditingController textoController = TextEditingController();
+
+  //logica para enviar a reportes e historial
+  Documento? documentoActual;
+
+  @override
+  void initState() {
+    super.initState();
+    documentoActual = Documento(texto: '', fecha: DateTime.now());
+  }
 
   Future<void> _pickImageFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -61,6 +70,7 @@ class _CapturaPageState extends State<CapturaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Captura de Imagen'), centerTitle: true),
+      drawer: buildDrawer(context),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -92,13 +102,25 @@ class _CapturaPageState extends State<CapturaPage> {
               setButton(
                 onCameraPressed: _pickImageFromCamera,
                 onGalleryPressed: _pickImageFromGallery,
+
                 onSavePressed: () {
-                  //si esta null ? retornar un mensaje ('Hubo un error'):
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Guardado exitosamente')),
-                  );
-                  Navigator.pop(context);
+                  if (textoController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('No se guardó el texto')),
+                    );
+                  } else {
+                    documentoActual = Documento(
+                      texto: textoController.text,
+                      fecha: DateTime.now(),
+                    );
+                    documentos.add(documentoActual!);
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Guardado exitosamente')),
+                    );
+                  }
                 },
+
                 onWhatsappPressed: () {
                   // lógica para enviar por WhatsApp
                   print("Enviar por WhatsApp: ${textoController.text}");
