@@ -79,3 +79,65 @@ Widget bulletSubItem(String text) {
     ],
   );
 }
+
+
+
+//callBack action para mandar a llamar las funciones de los bonontes
+//y construir aqui las propiedades.
+Widget setButton({
+  required VoidCallback onCameraPressed,
+  required VoidCallback onGalleryPressed,
+  required VoidCallback onSavePressed,
+  required VoidCallback onWhatsappPressed,
+}) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            onPressed: onCameraPressed,
+            icon: const Icon(Icons.camera_alt, color: Colors.red),
+            label: const Text(
+              'Abrir Cámara',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 20),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            onPressed: onGalleryPressed,
+            icon: const Icon(Icons.insert_drive_file, color: Colors.red),
+            label: const Text(
+              'Abrir Galería',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 20),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            onPressed: onSavePressed,
+            icon: const Icon(Icons.save, color: Colors.blue),
+            label: const Text('Guardar', style: TextStyle(color: Colors.white)),
+          ),
+          const SizedBox(width: 20),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            onPressed: onWhatsappPressed,
+            icon: const Icon(Icons.phone, color: Colors.green),
+            label: const Text(
+              'Enviar por WhatsApp',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import '../helpers/drawer.dart';
+import '../helpers/menuItems.dart';
+import '';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -13,10 +15,10 @@ class CapturaPage extends StatefulWidget {
 
 class _CapturaPageState extends State<CapturaPage> {
   File? _imagenArchivo;
-  String _textoExtraido = "";
+  String textoExtraido = "";
 
   final ImagePicker _picker = ImagePicker();
-  //instancias
+  final TextEditingController textoController = TextEditingController();
 
   Future<void> _pickImageFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -26,7 +28,7 @@ class _CapturaPageState extends State<CapturaPage> {
       });
       _processImage();
     }
-  } // funcion asincrona para abrir galeria
+  }
 
   Future<void> _pickImageFromCamera() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
@@ -36,7 +38,7 @@ class _CapturaPageState extends State<CapturaPage> {
       });
       _processImage();
     }
-  } //funcion para la camara
+  }
 
   Future<void> _processImage() async {
     if (_imagenArchivo == null) return;
@@ -48,65 +50,59 @@ class _CapturaPageState extends State<CapturaPage> {
     );
 
     setState(() {
-      _textoExtraido = recognizedText.text;
+      textoExtraido = recognizedText.text;
+      textoController.text = textoExtraido;
     });
 
     textRecognizer.close();
-    //liberar recursos opcional
-  } // Procesar imagen con OCR
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Captura de Imagen'),
-        centerTitle: true,
-      ),
-      drawer: buildDrawer(context),
+      appBar: AppBar(title: Text('Captura de Imagen'), centerTitle: true),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                _textoExtraido.isEmpty
+              /* Text(
+                textoExtraido.isEmpty
                     ? 'No hay texto extraído aún.'
-                    : _textoExtraido,
+                    : 'Texto extraído exitosamente',
                 style: const TextStyle(fontSize: 16),
-              ),
-
+              ),**/
               const SizedBox(height: 30),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                    ),
-                    onPressed: _pickImageFromCamera,
-                    icon: const Icon(Icons.camera_alt, color: Colors.red),
-                    label: const Text(
-                      'Abrir Cámara',
-                      style: TextStyle(color: Colors.white),
-                    ),
+              Container(
+                width: 300,
+                child: TextField(
+                  controller: textoController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'No hay texto extraído aún',
+                    hintText: 'Ingrese o edite el texto',
                   ),
-                  const SizedBox(width: 20),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                    ),
-                    onPressed: _pickImageFromGallery,
-                    icon: const Icon(
-                      Icons.insert_drive_file,
-                      color: Colors.red,
-                    ),
-                    label: const Text(
-                      'Abrir Galeriia',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ],
+                  maxLines: null,
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Aqui se pasa las funciones como parámetros
+              setButton(
+                onCameraPressed: _pickImageFromCamera,
+                onGalleryPressed: _pickImageFromGallery,
+                onSavePressed: () {
+                  //si esta null ? retornar un mensaje ('Hubo un error'):
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Guardado exitosamente')),
+                  );
+                  Navigator.pop(context);
+                },
+                onWhatsappPressed: () {
+                  // lógica para enviar por WhatsApp
+                  print("Enviar por WhatsApp: ${textoController.text}");
+                },
               ),
             ],
           ),
