@@ -44,8 +44,8 @@ class Acercade extends StatelessWidget {
             bulletItem('Sección: 157'),
             bulletItem('Integrantes:'),
             bulletSubItem('Carlos Ernesto Galindo Galvez 30821253'),
-            bulletSubItem('Josue Martin Silva Rodriguez'),
-            bulletSubItem('Andrea Michell Quintanilla León'),
+            bulletSubItem('Josue Martin Silva Rodriguez 324111195'),
+            bulletSubItem('Andrea Michell Quintanilla León 32321461'),
             Spacer(),
             Text(
               'Tegucigalpa, Honduras Q1 2026',
