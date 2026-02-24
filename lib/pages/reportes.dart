@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../helpers/drawer.dart';
 import '../services/historial_service.dart';
-import '../helpers/document.dart';
 
 class ReportesPage extends StatefulWidget {
   const ReportesPage({super.key});
@@ -51,7 +50,7 @@ class _ReportesPageState extends State<ReportesPage> {
         child: Column(
           children: [
 
-            // TITULO
+            // TÍTULO
             const Text(
               'Resumen general',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -59,7 +58,7 @@ class _ReportesPageState extends State<ReportesPage> {
 
             const SizedBox(height: 15),
 
-            // TARJETAS DE RESUMEN, que es lo que se muestra en la parte superior del reporte, con el total de documentos, los válidos y los inválidos
+            // TARJETAS SUPERIORES
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -73,7 +72,7 @@ class _ReportesPageState extends State<ReportesPage> {
 
             const SizedBox(height: 30),
 
-            // BOTONES PRINCIPALES
+            // BOTONES
             Column(
               children: [
 
@@ -110,7 +109,7 @@ class _ReportesPageState extends State<ReportesPage> {
                 const SizedBox(height: 10),
 
                 SizedBox(
-                  width: double.infinity, //||> BOTÓN DE ANCHO de acuerdo a la pantalla
+                  width: double.infinity,
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
@@ -131,8 +130,8 @@ class _ReportesPageState extends State<ReportesPage> {
 
             const SizedBox(height: 25),
 
-            // RESUMEN GENERADO
-            if (resumen.isNotEmpty) //Solo se va a mostrar el resumen si ya se ha generado
+            // RESUMEN
+            if (resumen.isNotEmpty)
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(12),
@@ -150,7 +149,7 @@ class _ReportesPageState extends State<ReportesPage> {
 
             const SizedBox(height: 10),
 
-            ...historial.map( // Para mostrar cada documento del historial
+            ...historial.map(
               (e) => ListTile(
                 leading: Icon(
                   e.valido ? Icons.check : Icons.close,
@@ -166,8 +165,13 @@ class _ReportesPageState extends State<ReportesPage> {
     );
   }
 
-  Widget _card(IconData icon, String title, String value, //Seria para que se muestre el total de documentos, los válidos y los inválidos
-      {Color color = Colors.blue}) {
+  // Tarjetas pequeñas de resumen
+  Widget _card(
+    IconData icon,
+    String title,
+    String value, {
+    Color color = Colors.blue,
+  }) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -181,23 +185,6 @@ class _ReportesPageState extends State<ReportesPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Reportes'), centerTitle: true),
-      drawer: buildDrawer(context),
-      body: ListView.builder(
-        itemCount: documentos.length,
-        itemBuilder: (context, index) {
-          final doc = documentos[index];
-          return ListTile(
-            title: Text(doc.texto),
-            subtitle: Text(doc.fecha.toString()),
-          );
-        },
       ),
     );
   }
