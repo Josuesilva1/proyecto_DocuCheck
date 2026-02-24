@@ -1,4 +1,4 @@
-import 'verificacion_model.dart';
+import '../models/verificacion_model.dart';
 
 class HistorialService {
 
