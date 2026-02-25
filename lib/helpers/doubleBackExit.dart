@@ -26,7 +26,8 @@ class _DoubleBackExitState extends State<DoubleBackExit> {
         final now = DateTime.now();
         final backButtonNotRecentlyPressed =
             lastBackPressed == null ||
-            now.difference(lastBackPressed!) > Duration(seconds: widget.duracion);
+            now.difference(lastBackPressed!) >
+                Duration(seconds: widget.duracion);
 
         if (backButtonNotRecentlyPressed) {
           lastBackPressed = now;

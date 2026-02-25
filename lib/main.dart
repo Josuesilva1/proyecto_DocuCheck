@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
 
       // ===== TEMA GLOBAL DE LA APP =====
       theme: ThemeData(
-
         // Colores base
         scaffoldBackgroundColor: const Color(0xFFD9DDCD),
         primaryColor: const Color(0xFF1C3166),
@@ -61,7 +60,6 @@ class MyApp extends StatelessWidget {
         ),
 
         // Cards
-        
 
         // Textos
         textTheme: const TextTheme(
@@ -75,5 +73,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

@@ -1,64 +1,31 @@
-/*import 'dart:io'; //librearia para herramientas internas y externas
-import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 
+class ImageExtrac {
+  final ImagePicker _picker = ImagePicker();
 
-class Imageextrac extends StatefulWidget {
-  const Imageextrac({super.key});
-
-  @override
-  State<Imageextrac> createState() => _ImageextracState();
-}
-
-class _ImageextracState extends State<Imageextrac> {
-  @override
-
-File? imagenArchivo;
-final ImagePicker picker = ImagePicker();
-String textoExtraido = "";
-
-  Future<void> pickImageFromGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      @override 
-      setState(() {
-        imagenArchivo = File(pickedFile.path);
-      });
-      processImage();
-    }
+  /// Captura desde galería
+  Future<File?> pickImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    return pickedFile != null ? File(pickedFile.path) : null;
   }
-  
-  Future<void> pickImageFromCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      @override 
-      setState(() {
-        imagenArchivo = File(pickedFile.path);
-      });
-      processImage();
-    }
-  } //funcion para la camara
 
-    Future<void> processImage() async {
-    if (imagenArchivo == null) return;
+  /// Captura desde cámara
+  Future<File?> pickImageFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    return pickedFile != null ? File(pickedFile.path) : null;
+  }
 
-    final inputImage = InputImage.fromFilePath(imagenArchivo!.path);
+  /// Procesa imagen con OCR
+  Future<String> processImage(File imageFile) async {
+    final inputImage = InputImage.fromFilePath(imageFile.path);
     final textRecognizer = TextRecognizer();
     final RecognizedText recognizedText = await textRecognizer.processImage(
       inputImage,
     );
-    @override 
-    setState(() {
-      textoExtraido = recognizedText.text;
-    });
 
-    textRecognizer.close();//liberar recursos opcional
-  } // Procesar imagen con OCR 
-  } // Procesar imagen con OCR
-
-  Widget build(BuildContext context) {
-    return Container();
+    textRecognizer.close();
+    return recognizedText.text;
   }
 }
-*/

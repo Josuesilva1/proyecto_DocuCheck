@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:image_picker/image_picker.dart';
 import '../helpers/drawer.dart';
 import '../helpers/document.dart';
+import '../helpers/imageExtrac.dart';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -13,12 +12,10 @@ class CapturaPage extends StatefulWidget {
 }
 
 class _CapturaPageState extends State<CapturaPage> {
+  final ImageExtrac _imageExtrac = ImageExtrac();
   File? _imagenArchivo;
   String textoExtraido = '';
-
-  final ImagePicker _picker = ImagePicker();
   final TextEditingController textoController = TextEditingController();
-
   Documento? documentoActual;
 
   @override
@@ -28,35 +25,27 @@ class _CapturaPageState extends State<CapturaPage> {
   }
 
   Future<void> _pickImageFromGallery() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() => _imagenArchivo = File(pickedFile.path));
-      _processImage();
+    final file = await _imageExtrac.pickImageFromGallery();
+    if (file != null) {
+      setState(() => _imagenArchivo = file);
+      _processImage(file);
     }
   }
 
   Future<void> _pickImageFromCamera() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      setState(() => _imagenArchivo = File(pickedFile.path));
-      _processImage();
+    final file = await _imageExtrac.pickImageFromCamera();
+    if (file != null) {
+      setState(() => _imagenArchivo = file);
+      _processImage(file);
     }
   }
 
-  Future<void> _processImage() async {
-    if (_imagenArchivo == null) return;
-
-    final inputImage = InputImage.fromFilePath(_imagenArchivo!.path);
-    final textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText =
-        await textRecognizer.processImage(inputImage);
-
+  Future<void> _processImage(File file) async {
+    final text = await _imageExtrac.processImage(file);
     setState(() {
-      textoExtraido = recognizedText.text;
+      textoExtraido = text;
       textoController.text = textoExtraido;
     });
-
-    textRecognizer.close();
   }
 
   @override
@@ -74,7 +63,6 @@ class _CapturaPageState extends State<CapturaPage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-
             // PREVIEW DE IMAGEN
             if (_imagenArchivo != null)
               ClipRRect(
@@ -100,10 +88,8 @@ class _CapturaPageState extends State<CapturaPage> {
 
             const SizedBox(height: 20),
 
-            // BOTONES OCR
             Row(
               children: [
-
                 Expanded(
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
@@ -115,9 +101,7 @@ class _CapturaPageState extends State<CapturaPage> {
                     label: const Text('Cámara'),
                   ),
                 ),
-
                 const SizedBox(width: 10),
-
                 Expanded(
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
@@ -134,7 +118,7 @@ class _CapturaPageState extends State<CapturaPage> {
 
             const SizedBox(height: 15),
 
-            // BYN GUARDAR DOCUMENTO
+            //guardar
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -160,7 +144,18 @@ class _CapturaPageState extends State<CapturaPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Documento guardado')),
                   );
-                },
+
+                  // Limpiar campos
+                  textoController.clear();
+                  setState(() {
+                    textoExtraido = "";
+                    _imagenArchivo = null;
+                  });
+
+                  // Navegar a reportes
+                  Navigator.pushNamed(context, '/reportesPage');
+                  //aqui habia configurado yo para poder ver los reportes en la pagina de Andrea, reportes
+                }, //pero ella lo ha cambiado.
                 icon: const Icon(Icons.save),
                 label: const Text('Guardar documento'),
               ),
