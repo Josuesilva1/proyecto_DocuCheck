@@ -1,14 +1,14 @@
 class VerificacionModel {
-  int? idValidacion;
+  //int? idValidacion;
   String texto;
-  DateTime fecha;
   bool valido;
+  DateTime fecha;  
 
   VerificacionModel({
-    this.idValidacion,
+    //this.idValidacion,
     required this.texto,
-    required this.fecha,
     required this.valido,
+    required this.fecha,    
   });
 
   Map<String, dynamic> toMap() {

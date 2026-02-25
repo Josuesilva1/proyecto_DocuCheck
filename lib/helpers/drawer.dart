@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import '../routes/appRoutes.dart';
 
 Drawer buildDrawer(BuildContext context) {
+  final primaryColor = Theme.of(context).primaryColor;
+
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        const DrawerHeader(
+        DrawerHeader(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 89, 90, 88),
+            color: primaryColor,
           ),
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.verified, color: Colors.blue, size: 50),
+              Icon(Icons.verified, color: Colors.white, size: 50),
               Text(
                 'DocuCheck',
                 style: TextStyle(

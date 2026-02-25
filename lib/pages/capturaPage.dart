@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../helpers/drawer.dart';
 import '../helpers/document.dart';
 import '../helpers/imageExtrac.dart';
+import '../models/verificacion_model.dart';
+import '../services/verificacion_service.dart';
+import '../routes/appRoutes.dart';
 
 class CapturaPage extends StatefulWidget {
   const CapturaPage({super.key});
@@ -13,6 +16,7 @@ class CapturaPage extends StatefulWidget {
 
 class _CapturaPageState extends State<CapturaPage> {
   final ImageExtrac _imageExtrac = ImageExtrac();
+  final VerificacionService _verificacionService = VerificacionService();
   File? _imagenArchivo;
   String textoExtraido = '';
   final TextEditingController textoController = TextEditingController();
@@ -126,7 +130,7 @@ class _CapturaPageState extends State<CapturaPage> {
                   backgroundColor: Colors.green,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () {
+                onPressed: () async {
                   if (textoController.text.trim().isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('No hay texto')),
@@ -134,28 +138,46 @@ class _CapturaPageState extends State<CapturaPage> {
                     return;
                   }
 
-                  documentoActual = Documento(
+                  //en lugar del document se llena el modelo de validacion
+                  var validacion = VerificacionModel(
                     texto: textoController.text,
+                    valido: true,
                     fecha: DateTime.now(),
                   );
 
-                  documentos.add(documentoActual!);
+                  //se inserta en la base
+                  await _verificacionService.insertarVerificacion(validacion);
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Documento guardado')),
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Documento guardado'),
+                        content: const Text('¿Qué deseas hacer ahora?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              textoController.clear();
+                              setState(() {
+                                textoExtraido = '';
+                                _imagenArchivo = null;
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Seguir capturando'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamed(context, AppRoutes.reportesPage);
+                            },
+                            child: const Text('Ver reportes'),
+                          ),
+                        ],
+                      );
+                    },
                   );
-
-                  // Limpiar campos
-                  textoController.clear();
-                  setState(() {
-                    textoExtraido = "";
-                    _imagenArchivo = null;
-                  });
-
-                  // Navegar a reportes
-                  Navigator.pushNamed(context, '/reportesPage');
-                  //aqui habia configurado yo para poder ver los reportes en la pagina de Andrea, reportes
-                }, //pero ella lo ha cambiado.
+                },
                 icon: const Icon(Icons.save),
                 label: const Text('Guardar documento'),
               ),

@@ -9,8 +9,8 @@ class AppRoutes {
 
   static const String menuPrincipal = '/menuPrincipal';
   static const String capturaImage = '/capturaPage';
-  static const String reportesPage = '/reportesPage';
-  static const String historialVerificaciones = '/historialVerificaciones';
+  static const String reportesPage = '/reportes';
+  static const String historialVerificaciones = '/historial_verificaciones';
   static const String acercaDe = '/acercaDe';
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -18,10 +18,7 @@ class AppRoutes {
       menuPrincipal: (context) => const MenuPrincipal(),
       capturaImage: (context) => const CapturaPage(),
       reportesPage: (context) => const ReportesPage(),
-
-      // CORRECCIÓN AQUÍ
-      historialVerificaciones: (context) => const HistorialVerificaciones(),
-      
+      historialVerificaciones: (context) => const HistorialVerificaciones(),      
       acercaDe: (context) => const Acercade(),
     };
   }
