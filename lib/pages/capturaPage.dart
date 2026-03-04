@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../helpers/drawer.dart';
-import '../helpers/document.dart';
+import '../models/document.dart';
 import '../helpers/imageExtrac.dart';
 import '../models/verificacion_model.dart';
 import '../services/verificacion_service.dart';
