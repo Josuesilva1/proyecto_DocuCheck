@@ -1,3 +1,5 @@
+// Función que hace que el grid se adapte a diferentes tamaños de pantalla
+import 'dart:ui'; // necesario para ImageFilter
 import 'package:flutter/material.dart';
 import 'package:flutter_app_docucheck/helpers/doubleBackExit.dart';
 import '../helpers/drawer.dart';
@@ -11,10 +13,7 @@ class MenuPrincipal extends StatelessWidget {
   Widget build(BuildContext context) {
     return DoubleBackExit(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('DocuCheck'),
-          centerTitle: true,
-        ),
+        appBar: AppBar(title: const Text('DocuCheck'), centerTitle: true),
         drawer: buildDrawer(context),
 
         body: Padding(
@@ -33,36 +32,32 @@ class MenuPrincipal extends StatelessWidget {
                 ),
               );
             },
-
             child: GridView.count(
               crossAxisCount: getCrossAxisCount(context),
-              childAspectRatio:
-                  getCrossAxisCount(context) == 1 ? 1.4 : 1,
-
+              childAspectRatio: getCrossAxisCount(context) == 1 ? 1.4 : 1,
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
-
               children: [
-
-                _cardMenu(
+                blurredGradientCard(
                   context,
-                  Icons.camera_alt,
                   'Escanear documento',
                   AppRoutes.capturaImage,
+                  [Colors.blueAccent, Colors.indigo],
+                  'images/camara.jpg',
                 ),
-
-                _cardMenu(
+                blurredGradientCard(
                   context,
-                  Icons.analytics,
-                  "Reportes",
+                  'Reportes',
                   AppRoutes.reportesPage,
+                  [Colors.teal, Colors.greenAccent],
+                  'images/documento.jpg',
                 ),
-
-                _cardMenu(
+                blurredGradientCard(
                   context,
-                  Icons.history,
-                  "Historial",
+                  'Historial',
                   AppRoutes.historialVerificaciones,
+                  [Colors.deepOrange, Colors.amber],
+                  'images/historial.png',
                 ),
               ],
             ),
@@ -72,40 +67,74 @@ class MenuPrincipal extends StatelessWidget {
     );
   }
 
-  // Función que hace que el grid se adapte a diferentes tamaños de pantalla
-  Widget _cardMenu(
+  Widget blurredGradientCard(
     BuildContext context,
-    IconData icon,
     String title,
     String route,
+    List<Color> gradientColors,
+    String assetImage,
   ) {
     return InkWell(
       borderRadius: BorderRadius.circular(18),
       onTap: () => Navigator.pushNamed(context, route),
-
       child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        child: Stack(
           children: [
-
-            Icon(
-              icon,
-              size: 48,
-              color: const Color(0xFF1C3166),
+            // Imagen de fondo
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: Image.asset(
+                assetImage,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              ),
             ),
 
-            const SizedBox(height: 12),
+            // Capa difuminada + degradado encima de la imagen
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: gradientColors
+                          .map((c) => c.withOpacity(0.6))
+                          .toList(),
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                ),
+              ),
+            ),
 
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+            // Overlay oscuro ligero
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: Container(
+                color: Colors.black.withOpacity(0.2),
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            ),
+
+            // Contenido texto
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 12),
+                  Text(
+                    title,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                  ),
+                ],
               ),
             ),
           ],

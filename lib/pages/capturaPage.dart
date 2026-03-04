@@ -169,9 +169,12 @@ class _CapturaPageState extends State<CapturaPage> {
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context);
-                              Navigator.pushNamed(context, AppRoutes.reportesPage);
+                              Navigator.pushNamed(
+                                context,
+                                AppRoutes.reportesPage,
+                              );
                             },
-                            child: const Text('Ver reportes'),
+                            child: const Text('reportes'),
                           ),
                         ],
                       );

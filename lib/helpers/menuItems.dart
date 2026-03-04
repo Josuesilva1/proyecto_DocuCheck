@@ -47,7 +47,6 @@ int getCrossAxisCount(BuildContext context) {
   return width < 500 ? 1 : 2;
 }
 
-
 Widget bulletItem(String text) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ Widget bulletItem(String text) {
         child: Text(
           text,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+        ),
       ),
     ],
   );
@@ -74,13 +73,11 @@ Widget bulletSubItem(String text) {
         child: Text(
           text,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+        ),
       ),
     ],
   );
 }
-
-
 
 //callBack action para mandar a llamar las funciones de los bonontes
 //y construir aqui las propiedades.
