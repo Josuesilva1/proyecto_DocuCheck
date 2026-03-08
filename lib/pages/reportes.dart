@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../helpers/drawer.dart';
 import '../services/verificacion_service.dart';
 import '../models/verificacion_model.dart';
@@ -97,7 +98,10 @@ class _ReportesPageState extends State<ReportesPage> {
                       side: const BorderSide(color: Colors.deepPurple),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.historialVerificaciones);
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.historialVerificaciones,
+                      );
                     },
                     icon: const Icon(Icons.history),
                     label: const Text('Ver historial'),
@@ -165,7 +169,7 @@ class _ReportesPageState extends State<ReportesPage> {
                   color: e.valido ? Colors.green : Colors.red,
                 ),
                 title: Text(e.texto),
-                subtitle: Text(e.fecha.toString()),
+                subtitle: Text(DateFormat('dd/MM/yyyy HH:mm').format(e.fecha)),
               ),
             ),
           ],

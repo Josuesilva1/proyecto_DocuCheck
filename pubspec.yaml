@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   sqflite: ^2.3.0
   path: ^1.9.0
+  intl: ^0.18.0
+
   
   # dependencia para la captura de imagenes
   image_picker: ^1.0.7
