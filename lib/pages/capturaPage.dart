@@ -131,17 +131,18 @@ class _CapturaPageState extends State<CapturaPage> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () async {
-                  if (textoController.text.trim().isEmpty) {
+                  bool esValido = textoController.text.trim().isNotEmpty;
+
+                  if (!esValido) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('No hay texto')),
-                    );
-                    return;
+                      const SnackBar(content: Text('No se pudo extraer texto válido del documento.')),
+                    ); 
                   }
 
                   //en lugar del document se llena el modelo de validacion
                   var validacion = VerificacionModel(
                     texto: textoController.text,
-                    valido: true,
+                    valido: esValido,
                     fecha: DateTime.now(),
                   );
 
